@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echoes of the Soul</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .choice-btn {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .choice-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Echoes of the Soul</h1>
+    <p>Make choices and discover your journey.</p>
+
+    <div id="choices">
+        <button class="choice-btn" onclick="makeChoice('explore_forest')">Explore a Forest</button>
+        <button class="choice-btn" onclick="makeChoice('help_villager')">Help a Villager</button>
+        <button class="choice-btn" onclick="makeChoice('write_poem')">Write a Poem</button>
+    </div>
+
+    <div id="output"></div>
+
+    <script src="frontend.js"></script>
+</body>
+</html>
