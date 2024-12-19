@@ -1,9 +1,17 @@
-const express = require('express');
+const express = require("express");
+
+// Update the import statements to use the correct casing
+const gameRoutes = require("./Routes/gameRoutes");
+const apiRoutes = require("./Routes/apiRoutes");
+require("dotenv").config();
+
 const app = express();
-const gameRoutes = require('./routes/gameRoutes');
-
 app.use(express.json());
-app.use('/api/game', gameRoutes);
 
-const PORT = 5000;
+// Mount routes
+app.use("/api/game", gameRoutes);
+app.use("/api/external", apiRoutes);
+
+// Start server
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

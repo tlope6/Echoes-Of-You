@@ -1,32 +1,38 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const outcomes = require('../data/outcomes');
+const outcomes = require("../data/outcomes");
 
+// Player data
 let playerData = {
-    creativity: 0,
-    kindness: 0,
-    adventure: 0,
-    choices: [],
+  creativity: 0,
+  kindness: 0,
+  adventure: 0,
+  choices: [],
 };
 
-router.post('/make_choice', (req, res) => {
-    const { choice } = req.body;
+// Make a choice
+router.post("/make_choice", (req, res) => {
+  const { choice } = req.body;
 
-    if (outcomes[choice]) {
-        Object.keys(outcomes[choice]).forEach((key) => {
-            playerData[key] += outcomes[choice][key];
-        });
-        playerData.choices.push(choice);
+  if (!outcomes[choice]) {
+    return res.status(400).json({ error: "Invalid choice" });
+  }
 
-        res.json({ message: "Choice saved!", playerData });
-    } else {
-        res.status(400).json({ error: "Invalid choice!" });
+  // Update stats
+  Object.keys(outcomes[choice]).forEach((key) => {
+    if (key !== "story") {
+      playerData[key] += outcomes[choice][key];
     }
+  });
+  playerData.choices.push(choice);
+
+  res.json({ message: "Choice made successfully", playerData });
 });
 
-router.get('/artifact', (req, res) => {
-    const summary = `You created a path full of ${playerData.choices.join(', ')}, reflecting your adventurous and creative spirit!`;
-    res.json({ summary, playerData });
+// Get player artifact
+router.get("/artifact", (req, res) => {
+  const artifact = `Your journey reflects an adventurous and creative spirit with decisions like ${playerData.choices.join(", ")}.`;
+  res.json({ artifact, playerData });
 });
 
 module.exports = router;
